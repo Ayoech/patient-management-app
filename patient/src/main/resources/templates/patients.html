@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:xlmns="http://www.w3.org/1999/xhtml" xlmns:th="http://www.thymeleaf.org"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.7/css/bootstrap.min.css">
+
+</head>
+<body>
+    <div class="card center m-4">
+        <div class="card-header">Liste des Patients</div>
+        <div class="card-body">
+            <form action="get" th:action="@{index}">
+                <label> Key Word</label>
+                <input type="text" name="Keyword" th:value="${keyword}">
+                <button type="submit" class="btn btn-primary ms-2">Search</button>
+            </form>
+            <table class="table table-light">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Date Naissance</th>
+                    <th>Malade</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="p:${listePatients}" class="table-group-divider">
+                    <td th:text="${p.id}"></td>
+                    <td th:text="${p.nom}"></td>
+                    <td th:text="${p.datenaissance}"></td>
+                    <td th:text="${p.malade}"></td>
+
+                </tr>
+
+                </tbody>
+                <ul class="nav nav-pills">
+                    <li th:each="page,status:${pages}">
+                        <a th:class="${status.index==currentPage? 'btn btn-primary ms-2': 'btn btn-outline-primary ms-2'}"
+                           th:text="${status.count}"
+                           th:href="@{index(page=${status.index}, Keyword=${keyword})}">
+                        </a>
+                    </li>
+                </ul>
+
+            </table>
+        </div>
+    </div>
+
+
+</body>
+</html>
